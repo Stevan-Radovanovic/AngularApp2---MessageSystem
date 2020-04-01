@@ -1,5 +1,9 @@
 <div class="columns">
   <div class="column is-6 is-offset-3">
+    <div *ngIf="errorMessage != null">
+      <p class="help is-danger">{{ errorMessage }}</p>
+      <br />
+    </div>
     <form [formGroup]="signupForm" (submit)="onSubmit()">
       <div class="field">
         <div class="control">

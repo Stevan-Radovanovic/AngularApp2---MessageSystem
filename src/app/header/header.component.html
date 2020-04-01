@@ -23,16 +23,20 @@
 
   <div id="navbarBasicExample" class="navbar-menu">
     <div class="navbar-start">
-      <a routerLink="" class="navbar-item">
+      <a *ngIf="auth == true" routerLink="messages" class="navbar-item">
         Message System
       </a>
 
-      <a routerLink="login" class="navbar-item">
+      <a *ngIf="auth == false" routerLink="login" class="navbar-item">
         Log in
       </a>
 
-      <a routerLink="signup" class="navbar-item">
+      <a *ngIf="auth == false" routerLink="signup" class="navbar-item">
         Sign up
+      </a>
+
+      <a *ngIf="auth == true" (click)="onLogOut()" class="navbar-item">
+        Log out
       </a>
     </div>
   </div>

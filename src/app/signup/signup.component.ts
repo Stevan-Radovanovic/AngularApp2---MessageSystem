@@ -12,6 +12,7 @@ export class SignupComponent implements OnInit {
   constructor(private firebase: FirebaseService) {}
 
   signupForm: FormGroup;
+  errorMessage: string = null;
 
   private initForm() {
     this.signupForm = new FormGroup({
@@ -29,8 +30,20 @@ export class SignupComponent implements OnInit {
       this.signupForm.controls.email.value,
       this.signupForm.controls.password.value
     );
-    this.firebase.logIn(user).subscribe(response => {
-      console.log(response);
-    });
+    this.firebase.signUp(user).subscribe(
+      response => {
+        console.log(response);
+        this.errorMessage = null;
+      },
+      errorRes => {
+        switch (errorRes.error.error.message) {
+          case 'EMAIL_EXISTS':
+            this.errorMessage = 'This email already has an account';
+            break;
+          default:
+            this.errorMessage = 'An error occured';
+        }
+      }
+    );
   }
 }
